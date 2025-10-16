@@ -9,7 +9,7 @@ export default class ServicioApiSuppliers extends Component {
 
     state={
         suppliers:[],
-        actual:[]
+        actual:null
     }
 
     loadSuppliers=()=>{
@@ -36,21 +36,22 @@ export default class ServicioApiSuppliers extends Component {
     mostrarDatos=()=>{
        var id=parseInt(this.cajaTexto.current.value);
         console.log("Mi id es "+id);
-        var request="Suppliers";
-        var aux=[];
-        axios.get(this.url+request).then(response=>{
-            if(response.data.SupplierID == id){
-                var supplier=response.data;
-                console.log(supplier);
-                aux.push(response.data.value);
-
-                this.setState({
-                    actual:aux
-                })
-
-                return(<h2>{this.state.actual}</h2>)
-            }
+        var supplier=this.state.suppliers.find(sup=>sup.SupplierID===id);
+        
+       if(supplier){
+        this.setState({
+            actual:supplier
         })
+       }else{
+        this.setState({
+            actual:null
+        })
+        
+       }
+            
+
+            
+        
     }
 
   render() {
@@ -64,6 +65,20 @@ export default class ServicioApiSuppliers extends Component {
             this.state.suppliers.map((supplier,index)=>{
                 return(<h2 key={index}>{index}  {supplier.ContactName}</h2>)
             })
+        }
+        {
+            this.state.actual && (
+                        <div style={{color:"blue"}}>
+                            <h2>Datos del Supplier {this.state.actual.SupplierID}</h2>
+                            <h3>Company Name: {this.state.actual.CompanyName}</h3>
+                            <h3>Contact Name: {this.state.actual.ContactName}</h3>
+                            <h3>Contact Title: {this.state.actual.ContactTitle}</h3>
+                            <h3>Address: {this.state.actual.Address}</h3>
+                            <h3>City: {this.state.actual.City}</h3>
+                            <h3>Country: {this.state.actual.Country}</h3>
+                            <h3>Phone: {this.state.actual.Phone}</h3>
+                        </div>
+                        )
         }
         
       </div>
