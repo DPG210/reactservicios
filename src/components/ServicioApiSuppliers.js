@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import Global from '../Global';
 
 export default class ServicioApiSuppliers extends Component {
 
-    url="https://services.odata.org/V4/Northwind/Northwind.svc/";
+    url=Global.urlNorthwind
+
+    
 
     cajaTexto=React.createRef();
 
@@ -91,7 +94,7 @@ export default class ServicioApiSuppliers extends Component {
         }
         <ul>{
             this.state.suppliers.map((supplier,index)=>{
-                return(<li key={index}>{index}  {supplier.ContactName}</li>)
+                return(<li key={index}>{supplier.SupplierID}  {supplier.ContactName}</li>)
             })
         }
         </ul>
