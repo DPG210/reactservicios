@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default class ServicioApiSuppliers extends Component {
 
-    url="https://services.odata.org/V4/Northwind/Northwind.svc/"
+    url="https://services.odata.org/V4/Northwind/Northwind.svc/";
 
     cajaTexto=React.createRef();
 
@@ -13,7 +13,7 @@ export default class ServicioApiSuppliers extends Component {
     }
 
     loadSuppliers=()=>{
-        var request="Suppliers"
+        var request="Suppliers";
         console.log("antes del servicio");
 
         axios.get(this.url+request).then(response=>{
@@ -32,8 +32,25 @@ export default class ServicioApiSuppliers extends Component {
         console.log("cargando componente");
         this.loadSuppliers();
     }
+    // findSupplierId=(event)=>{
+    //     event.preventDefault();
+    //     var request="Suppliers";
+    //     let idSupplier=parseInt(this.cajaTexto.current.value);
+    //     //REALIZAMOS LA PETICION DE NUEVO A TODOS LOS PROVEEDORES
+    //     axios.get(this.url+request).then(response=>{
+    //         for(var supplier of response.data.value){
+    //             if(supplier.SupplierID==idSupplier){
+    //                 this.setState({
+    //                     actual:supplier
+    //                 })
+    //                 break;
+    //             }
+    //         }
+    //     })
+    // }
 
-    mostrarDatos=()=>{
+    mostrarDatos=(event)=>{
+        event.preventDefault();
        var id=parseInt(this.cajaTexto.current.value);
         console.log("Mi id es "+id);
         var supplier=this.state.suppliers.find(sup=>sup.SupplierID===id);
@@ -58,17 +75,29 @@ export default class ServicioApiSuppliers extends Component {
     return (
       <div>
         <h1>Service Api Suppliers</h1>
-        <label>Escriba el nombre</label>
+        <form>
+        <label>Escriba el ID</label>
         <input type="text" ref={this.cajaTexto}></input>
         <button onClick={this.mostrarDatos}>Mostrar</button>
+        </form>
         {
+            this.state.actual &&
+                (
+                    <div>
+                    <h1>Company:{this.state.actual.ContactName}</h1>
+                    </div>
+                )
+            
+        }
+        <ul>{
             this.state.suppliers.map((supplier,index)=>{
-                return(<h2 key={index}>{index}  {supplier.ContactName}</h2>)
+                return(<li key={index}>{index}  {supplier.ContactName}</li>)
             })
         }
-        {
+        </ul>
+        {/* {
             this.state.actual && (
-                        <div style={{color:"blue"}}>
+                        <div style={{color:"blue", border:"solid 1px"}}>
                             <h2>Datos del Supplier {this.state.actual.SupplierID}</h2>
                             <h3>Company Name: {this.state.actual.CompanyName}</h3>
                             <h3>Contact Name: {this.state.actual.ContactName}</h3>
@@ -79,7 +108,7 @@ export default class ServicioApiSuppliers extends Component {
                             <h3>Phone: {this.state.actual.Phone}</h3>
                         </div>
                         )
-        }
+        } */}
         
       </div>
     )
