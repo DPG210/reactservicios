@@ -19,6 +19,7 @@ export default class EmpleadosOficios extends Component {
             console.log("Dentro del get");
             var datos=response.data;
             var responseOficios=[...new Set(datos.map(oficio=>oficio.oficio))];
+
             console.log(responseOficios);
             this.setState({
                 oficio:responseOficios
@@ -48,13 +49,13 @@ export default class EmpleadosOficios extends Component {
   render() {
     return (
       <div>
-        <h1>Empelados Oficio</h1>
+        <h1>Empleados Oficio</h1>
         <form>
-            <button onClick={this.buscarEmpleados}>Buscar empleados</button><br></br><br></br>
-            <select ref={this.selectOficio}>
+            {/* <button onClick={this.buscarEmpleados}>Buscar empleados</button><br></br><br></br> */}
+            <select ref={this.selectOficio} onChange={this.buscarEmpleados}>
                 {
-                    this.state.oficio.map((empleados,index)=>{
-                        return(<option key={index} value={empleados}>{empleados}</option>)
+                    this.state.oficio.map((oficio,index)=>{
+                        return(<option key={index} value={oficio}>{oficio}</option>)
                     })
                 }
             </select>
@@ -63,7 +64,7 @@ export default class EmpleadosOficios extends Component {
         {
             
         }
-         <table>
+         <table border="1">
                 <thead>
                     <tr>
                         <th>Apellido</th>
