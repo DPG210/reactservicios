@@ -11,7 +11,7 @@ export default class ServicioApiCustomers extends Component {
     //CREAMOS UN METODO PARA CARGAR LOS CLIENTES
     loadCustomers=()=>{
         console.log("Antes del servicio");
-        request="Customers";
+        var request="Customers";
         axios.get(this.url+request).then(response=>{
             console.log("Leyendo el servicio");
             //LA INFORMACION VIENE EN response.data

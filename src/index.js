@@ -5,12 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ServicioApiCustomers from './components/ServicioApiCustomers';
 import ServicioApiSuppliers from './components/ServicioApiSuppliers';
+import EmpleadosDepartamento from './components/EmpleadosDepartamento';
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <ServicioApiSuppliers/>
+    <EmpleadosDepartamento/>
 );
 
 // If you want to start measuring performance in your app, pass a function
