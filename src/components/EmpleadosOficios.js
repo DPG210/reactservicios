@@ -20,6 +20,8 @@ export default class EmpleadosOficios extends Component {
             var datos=response.data;
             var responseOficios=[...new Set(datos.map(oficio=>oficio.oficio))];
 
+            
+
             console.log(responseOficios);
             this.setState({
                 oficio:responseOficios
@@ -60,10 +62,7 @@ export default class EmpleadosOficios extends Component {
                 }
             </select>
         </form>
-        <h1>{this.state.empleados.apellido}</h1>
-        {
-            
-        }
+        {/* <button onClick={this.buscarEmpleados}> Buscar empleados</button> */}
          <table border="1">
                 <thead>
                     <tr>
