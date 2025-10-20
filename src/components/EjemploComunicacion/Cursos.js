@@ -8,7 +8,8 @@ export default class Cursos extends Component {
     selectCurso=React.createRef();
     state={
         cursos:[],
-        curso:0
+        curso:0,
+        alumnoSeleccionado:null
     }
     loadCursos=()=>{
         var request="api/alumnos/cursos"
@@ -30,10 +31,26 @@ export default class Cursos extends Component {
             curso:curso
         })
     }
+
+   seleccionarAlumno=(alumno)=>{
+        console.log(alumno);
+        this.setState({
+            alumnoSeleccionado:alumno
+        })
+    }
+
   render() {
     return (
       <div>
         <h1>Cursos</h1>
+        {
+            this.state.alumnoSeleccionado &&
+            (<div>
+                <h2>
+                    {this.state.alumnoSeleccionado.nombre}
+                </h2>
+            </div>)
+        }
         <form>
             <select ref={this.selectCurso} onChange={this.buscarAlumnos}>
                 {
@@ -47,7 +64,8 @@ export default class Cursos extends Component {
         </form>
         {
             this.state.curso !=0 &&
-            <Alumnos curso={this.state.curso}></Alumnos>
+            <Alumnos curso={this.state.curso}
+            seleccionarAlumno={this.seleccionarAlumno}></Alumnos>
         }
       </div>
     )
